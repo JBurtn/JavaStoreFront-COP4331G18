@@ -54,8 +54,16 @@ public class ConsumerWindow extends ItemPanel
 			public void actionPerformed(ActionEvent e)
 			{
 				Quantity = Integer.parseInt(readQty());
-				//Consumer.addItem(Quantity, item);
-				//Comsumer.save();
+				if(Quantity > item.getStock())
+				{
+					Qty.setText("Invalid Amount");
+					Qty.setEditable(true);
+				}else 
+				{
+					//Consumer.addItem(Quantity, item);
+					//Consumer.save();
+				}
+				
 			}
 		});
 	}
