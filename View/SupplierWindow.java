@@ -28,13 +28,13 @@ public class SupplierWindow extends ItemPanel
 		JTextField Price = new JTextField("Price:$ " + item.getPrice());
 		remove = new JButton("Remove");
 		panel.add(name);
-       	panel.add(Price);
-       	panel.add(Stock);
-       	panel.add(Description);
-       	panel.add(remove);
-       	panel.add(new JLabel());
-       	panel.setBackground(Color.WHITE);
-       	panel.setBorder(javax.swing.BorderFactory.createLineBorder(Color.BLACK));
+       		panel.add(Price);
+       		panel.add(Stock);
+       		panel.add(Description);
+       		panel.add(remove);
+       		panel.add(new JLabel());
+       		panel.setBackground(Color.WHITE);
+       		panel.setBorder(javax.swing.BorderFactory.createLineBorder(Color.BLACK));
 		name.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
