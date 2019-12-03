@@ -38,7 +38,7 @@ public class Login implements Display
 	                    frame.dispose();
 	                    //GET ACCOUNT AND USERTYPE!!!!!!!!!!!!!!
 	                    
-	                    View Welcome = new View();//CHANGE VALUE TO USERTYPE
+	                    View Welcome = new View(2, user.getText(), pass.getText(), Getuser);//CHANGE VALUE TO USERTYPE
 	                	Welcome.Display();
 	                }
 	            }
