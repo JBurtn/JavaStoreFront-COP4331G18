@@ -25,7 +25,7 @@ public class Login implements Display
 	    	Getuser.load();
 	    }
 	    
-	    private JButton login(JTextField user, JTextField pass, JTextField incorrect)
+	    private JButton login(JTextField user, JTextField pass, JLabel incorrect)
 	    {
 	        JButton Login = new JButton("Login");
 	        Login.addActionListener(new ActionListener() {
@@ -69,11 +69,11 @@ public class Login implements Display
 	    {
 	        JPanel panel = new JPanel();
 	        panel.setLayout(new GridLayout(3, 3, 5, 10));
-	        user = new JTextField("Username");
-	        pass = new JTextField("Password");
-	        incorrect = new JLabel(" ");
+	        JTextField user = new JTextField("Username");
+	        JTextField pass = new JTextField("Password");
+	        JLabel incorrect = new JLabel(" ");
 	        incorrect.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		
+
 	        user.setEditable(true);
 	        pass.setEditable(true);
 	        
