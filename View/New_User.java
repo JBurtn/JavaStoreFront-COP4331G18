@@ -41,8 +41,8 @@ public class New_User implements Display
 	            	if(!username.getText().isBlank() && !password.getText().isBlank() && 
 	            	(Seller.isSelected() || Buyer.isSelected() || Both.isSelected()))
 	                {
-	            		if(Seller.isSelected()) 
-	            			user_type = 0;
+	            	    if(Seller.isSelected()) 
+	            		user_type = 0;
 	                    else if(Buyer.isSelected())
 	                        user_type = 1;
 	                    else
