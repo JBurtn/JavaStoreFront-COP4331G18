@@ -40,10 +40,10 @@ public class View
     	Sellpanel = new JPanel();
     	Sellpanel.setLayout(new GridLayout(Item.size(), 1, 10, 10));
 	
-	setConsumerPane();
-	setSelerPanel();
-	users.addTab(Conpanel);
-	users.addTab(Sellpanet);
+	setConsumerPanel();
+	users.addTab("Consumer", scroll);
+	setSellerPanel();
+	users.addTab("Seller", scroll);
 	
 	switch(acct.getUserType()){
 		case 0:
@@ -62,19 +62,8 @@ public class View
     /***
      * Sets the Home Screen Depending on the User Type
      */
-    private void setConsumerPanel(){}// move consumer Panel setup here
-    private void setSellerPanel(){}//move seller panel setup here
-    void Home()
-    {	
-    	JButton add = new JButton("Add");
-    	add.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-				new SupplierView().Display(frame, UserType, Name, Pass);
-			}
-		});
-    	
+    private void setConsumerPanel()
+    {
     	JButton Cart = new JButton("Cart");//move to Consumer
     	Cart.addActionListener(new ActionListener() {
 			@Override
@@ -84,75 +73,59 @@ public class View
 				//Show Cart, proceed to checkout
 			}
 		});
-    	
-    	JPanel panelbutton1 = new JPanel();
-    	panelbutton1.setLayout(new GridLayout(1, 2, 10, 0));
-    	panelbutton1.add(new JLabel("")); panelbutton1.add(add);
-    	JPanel panelbutton2 = new JPanel();
+	JPanel panelbutton2 = new JPanel();
     	panelbutton2.setLayout(new GridLayout(1, 2, 10, 0));
     	panelbutton2.add(new JLabel("")); panelbutton2.add(Cart);
-    	
-    	users = new JTabbedPane();
-    	Sellpanel.setLayout(new GridLayout(Item.size() + 2, 1, 10, 10));
-    	Sellpanel.add(panelbutton1, BorderLayout.NORTH);
-    	Conpanel.setLayout(new GridLayout(Item.size() + 2, 1, 10, 10));
+	Conpanel.setLayout(new GridLayout(Item.size() + 2, 1, 10, 10));
     	Conpanel.add(panelbutton2, BorderLayout.NORTH);
-    	int j = 1;
-    	if(UserType == 0)//Seller
-    	{    	
-    		for(Item i : SellerItems)
-    		{
-    			SupplierWindow sup = new SupplierWindow(i, j);
-    			Sellpanel.add(sup.panel);
-    			j++;
-    		}
-    		scroll = new JScrollPane(Sellpanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    		users.addTab("Seller", scroll);
-    	}
-    	else if(UserType == 1)//Consumer
-    	{
-        	for(Item i : Item)
+	int j = 1;
+	    for(Item i : Item)
         	{
         		ConsumerWindow con = new ConsumerWindow(i, j);
         		Conpanel.add(con.panel);
         		j++;
         	}
     		//Con = new Consumer();
-    		scroll = new JScrollPane(Conpanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    		users.addTab("Consumer", scroll);
-    	}
-    	else if(UserType == 2)//Both
-    	{
-        	for(Item i : Item)
-        	{
-        		ConsumerWindow con = new ConsumerWindow(i, j);
-        		Conpanel.add(con.panel);
-        		j++;
-        	}
-        	j = 1;
-        	for(Item i : SellerItems)
-        	{
-        		SupplierWindow sup = new SupplierWindow(i, j);
-        		Sellpanel.add(sup.panel);
-        		j++;
-        	}
-    		
-    		scroll = new JScrollPane(Sellpanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    		users.addTab("Seller", scroll);
-    		scroll = new JScrollPane(Conpanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    		users.addTab("Consumer", scroll);
-    	}
-    }
+    		scroll = new JScrollPane(Conpanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);  
+    }// move consumer Panel setup here
     
+    private void setSellerPanel()
+    {
+    	JButton add = new JButton("Add");
+    	add.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				new SupplierView().Display(frame, UserType, Name, Pass);
+			}
+		});
+    	JPanel panelbutton1 = new JPanel();
+    	panelbutton1.setLayout(new GridLayout(1, 2, 10, 0));
+    	panelbutton1.add(new JLabel("")); panelbutton1.add(add);
+    	
+    	
+    	users = new JTabbedPane();
+    	Sellpanel.setLayout(new GridLayout(Item.size() + 2, 1, 10, 10));
+    	Sellpanel.add(panelbutton1, BorderLayout.NORTH);
+    
+    	int j = 1;   	
+    	for(Item i : SellerItems)
+    	{
+    		SupplierWindow sup = new SupplierWindow(i, j);
+    		Sellpanel.add(sup.panel);
+    		j++;
+    	}
+    	scroll = new JScrollPane(Sellpanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    }//move seller panel setup here
+    
+  
     public void Display()
     {
-    	Home();
     	frame.add(users);
     	frame.setPreferredSize(new Dimension(800, 400));
         frame.setResizable(true);
         frame.pack();
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    
     }
 }
