@@ -18,50 +18,43 @@ import Model.*;
 public class View 
 {
     public View Currentview;
-    public ArrayList<Item> Item = new ArrayList<Item>();
-    public ArrayList<Item> SellerItems = new ArrayList<Item>();
+    public ArrayList<Item> Item;
     public JFrame frame;
-    Model Model;
-    public JPanel Conpanel;
+    private Model current;
+    private Account acct;
+    public static JPanel Conpanel;
     public static JPanel Sellpanel;
-    static JTabbedPane users;
+    public static JTabbedPane users;
     JScrollPane scroll;
-    int UserType;
-    public static Customer Buyer;
-    public static Seller Supplier;
-    String Name;
-    String Pass;
-    
-    View(int i, String name, String pass, Model current)
+
+
+    View(Account acct, Model current)
     {	
     	frame = new JFrame();
-    	UserType = i;
-    	Name = name;
-    	Pass = pass;
-    	Model = current;
-    	switch(UserType) 
-    	{
-    		case 1:
-    			Buyer = new Customer(Name, Pass, UserType);
-    			Item.addAll(Model.getFullItemList());
-    			
-    		case 0: 
-    			Supplier = new Seller(Name, Pass, UserType);
-    		    SellerItems.addAll(Supplier.getItemList());
-    		    
-    		case 2:
-    			Buyer = new Customer(Name, Pass, UserType);
-    			Item.addAll(Model.getFullItemList());
-    			
-    			Supplier = new Seller(Name, Pass, UserType);
-    			SellerItems.addAll(Supplier.getItemList());
-    		default:
-    			break;
-    	}
+    	this.acct = acct;
+    	this.current = current;
+    	item = acct.getItemList();
+	
     	Conpanel = new JPanel();
     	Conpanel.setLayout(new GridLayout(Item.size(), 1, 10, 10));
     	Sellpanel = new JPanel();
     	Sellpanel.setLayout(new GridLayout(Item.size(), 1, 10, 10));
+	
+	setConsumerPane();
+	setSelerPanel();
+	users.addTab(Conpanel);
+	users.addTab(Sellpanet);
+	
+	switch(acct.getUserType()){
+		case 0:
+			users.setEnabledAt(0, false);
+			break;
+		case 1:
+			users.setEnabledAt(1, false);
+			break;
+		default:
+			break;
+	}
     }
     View(){}
     
@@ -69,6 +62,8 @@ public class View
     /***
      * Sets the Home Screen Depending on the User Type
      */
+    private void setConsumerPanel(){}// move consumer Panel setup here
+    private void setSellerPanel(){}//move seller panel setup here
     void Home()
     {	
     	JButton add = new JButton("Add");
@@ -80,7 +75,7 @@ public class View
 			}
 		});
     	
-    	JButton Cart = new JButton("Cart");
+    	JButton Cart = new JButton("Cart");//move to Consumer
     	Cart.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) 
