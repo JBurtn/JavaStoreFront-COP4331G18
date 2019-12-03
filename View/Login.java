@@ -13,12 +13,15 @@ import Model.*;
 
 public class Login implements Display
 {
-	 	Model Getuser;
+	    Model Getuser;
 	    public static JFrame frame = new JFrame();
+	    private final JLabel incorrect;
+	    private final JTextField user;
+	    private final JTextField pass;
 	    
-	    Login()
+	    Login(Model GetUser)
 	    {
-	    	Getuser = new Model();
+	    	this.Getuser = GetUser;
 	    	Getuser.load();
 	    }
 	    
@@ -27,18 +30,18 @@ public class Login implements Display
 	        JButton Login = new JButton("Login");
 	        Login.addActionListener(new ActionListener() {
 	            @Override
+		    private final Account verify;
 	            public void actionPerformed(ActionEvent arg0) 
 	            {
-	                if(Getuser.confirm(user.getText(), pass.getText()) == false)
-	                {
+		    	verify = confirm(user.getText, pass.getText());
+	                if(verify == null){
 	                    incorrect.setText("Incorrect Username And/Or Password");
 	                }
 	                else
 	                {
 	                    frame.dispose();
 	                    //GET ACCOUNT AND USERTYPE!!!!!!!!!!!!!!
-	                    
-	                    View Welcome = new View(2, user.getText(), pass.getText(), Getuser);//CHANGE VALUE TO USERTYPE
+	                    View Welcome = new View(verify);//CHANGE VALUE TO USERTYPE
 	                	Welcome.Display();
 	                }
 	            }
@@ -66,12 +69,11 @@ public class Login implements Display
 	    {
 	        JPanel panel = new JPanel();
 	        panel.setLayout(new GridLayout(3, 3, 5, 10));
-	        JTextField user = new JTextField("Username");
-	        JTextField pass = new JTextField("Password");
-	        JTextField incorrect = new JTextField(" ");
+	        user = new JTextField("Username");
+	        pass = new JTextField("Password");
+	        incorrect = new JLabel(" ");
 	        incorrect.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-	        
-	        incorrect.setEditable(false);
+		
 	        user.setEditable(true);
 	        pass.setEditable(true);
 	        
