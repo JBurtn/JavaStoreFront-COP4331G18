@@ -96,7 +96,7 @@ public class View
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				new SupplierView().Display(frame, UserType, Name, Pass);
+				new SupplierView().Display(frame, acct, current);
 			}
 		});
     	JPanel panelbutton1 = new JPanel();
