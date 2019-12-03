@@ -22,7 +22,7 @@ import Model.*;
 public class SupplierView extends View
 {	
 
-	public void Display(JFrame frame, int Type) 
+	public void Display(JFrame frame, Account acct, Model current) 
 	{	
 		
 		frame.dispose();
@@ -79,8 +79,8 @@ public class SupplierView extends View
             {
             	Frame.dispose();
             	frame.dispose();
-            	View test = new View(Type);
-            	test.Display();
+            	View noChange = new View(acct, current);
+            	noChange.Display();
             }
         });
         
@@ -92,8 +92,8 @@ public class SupplierView extends View
             	//Supplier.addItem(newItem);
             	Frame.dispose();
                 frame.dispose();
-                View test = new View(Type);
-                test.Display();
+                View complete = new View(acct, current);
+                complete.Display();
             }
         });
        
