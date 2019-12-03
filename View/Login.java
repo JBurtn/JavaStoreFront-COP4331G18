@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -22,23 +23,23 @@ public class Login implements Display
 	    	Getuser.load();
 	    }
 	    
-	    private JButton login(JTextField user, JTextField pass, JTextField incorrect)
+	    private JButton login(JTextField user, JTextField pass, JLabel incorrect)
 	    {
 	        JButton Login = new JButton("Login");
 	        Login.addActionListener(new ActionListener() {
+	        	private final Account check = Getuser.confirm(user.getText(), pass.getText());
+	        	
 	            @Override
 	            public void actionPerformed(ActionEvent arg0) 
 	            {
-	                if(Getuser.confirm(user.getText(), pass.getText()) == false)
-	                {
-	                    incorrect.setText("Incorrect Username And/Or Password");
+	                if(Getuser.confirm(user.getText(), pass.getText()) == null) {
+	                    incorrect.setVisible(true); 
 	                }
 	                else
 	                {
 	                    frame.dispose();
 	                    //GET ACCOUNT AND USERTYPE!!!!!!!!!!!!!!
-	                    
-	                    View Welcome = new View();//CHANGE VALUE TO USERTYPE
+	                    View Welcome = new View(check);//CHANGE VALUE TO USERTYPE
 	                	Welcome.Display();
 	                }
 	            }
@@ -68,12 +69,9 @@ public class Login implements Display
 	        panel.setLayout(new GridLayout(3, 3, 5, 10));
 	        JTextField user = new JTextField("Username");
 	        JTextField pass = new JTextField("Password");
-	        JTextField incorrect = new JTextField(" ");
+	        JLabel incorrect = new JLabel("Incorrect Username And/Or Password");
 	        incorrect.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 	        
-	        incorrect.setEditable(false);
-	        user.setEditable(true);
-	        pass.setEditable(true);
 	        
 	        panel.add(user);
 	        panel.add(pass);

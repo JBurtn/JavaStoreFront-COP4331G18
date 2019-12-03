@@ -19,15 +19,23 @@ public class New_User implements Display
 	    public JTextField username = new JTextField();
 	    private JTextField password = new JTextField();
 	    private static JTextField notify_user = new JTextField();
-	    private JRadioButton Seller = new JRadioButton("Seller");
-	    private JRadioButton Buyer = new JRadioButton("Buyer");
-	    private JRadioButton Both = new JRadioButton("Both");
-	    private int user_type;
-	    Model Getuser;
 	    
-	    public New_User(Model temp) 
+	    private ButtonGroup AcctType = new ButtonGroup();
+	    private JRadioButton Seller = new JRadioButton("Seller", true);
+	    private JRadioButton Buyer = new JRadioButton("Buyer", false);
+	    private JRadioButton Both = new JRadioButton("Both", false);
+	    
+	    
+	    
+	    private int user_type;
+	    Model User;
+	    
+	    public New_User(Model User) 
 	    {
-	    	Getuser = temp;
+	    	this.User = User;
+	    	AcctType.add(Seller);
+	    	AcctType.add(Buyer);
+	    	AcctType.add(Both);
 	    }
 	    
 	    private JButton Submit()
@@ -38,20 +46,19 @@ public class New_User implements Display
 	            @Override
 	            public void actionPerformed(ActionEvent arg0) 
 	            {
-	            	if(!username.getText().isBlank() && !password.getText().isBlank() && 
-	            	(Seller.isSelected() || Buyer.isSelected() || Both.isSelected()))
+	            	if(!username.getText().isBlank() && !password.getText().isBlank() )
 	                {
-	            	    if(Seller.isSelected()) 
-	            		user_type = 0;
+	            		if(Seller.isSelected()) 
+	            			user_type = 0;
 	                    else if(Buyer.isSelected())
 	                        user_type = 1;
 	                    else
 	                        user_type = 2;
 	            		//ADD NEW ACCOUNT RETRY TO LOGIN
-	            		
-	                    frame.dispose();
-	                    Login relogin = new Login();
-	                    relogin.Frame();
+	            		if ()
+	                    	frame.dispose();
+	                    	Login relogin = new Login();
+	                    	relogin.Frame();
 	                }
 	                else
 	                {

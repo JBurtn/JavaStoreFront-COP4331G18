@@ -2,16 +2,16 @@ package View;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
 import Model.Item;
 
 public class SupplierWindow extends ItemPanel
@@ -20,29 +20,24 @@ public class SupplierWindow extends ItemPanel
 	JTextField getprice;
 	JTextField getstock;
 	JTextArea getDetails;
+	JTextField Price;
 	JButton remove;
-	int i;
 	
-	public SupplierWindow(Item item, int j) {
+	public SupplierWindow(Item item) {
 		super(item);
-		Price = new JLabel("Price:$ " + item.getPrice());
-		Stock = new JLabel("Stock: " + item.getStock());
-		name = new JButton(item.getName());
-		Description = new JLabel(item.getDetails());
-		submit = new JButton("Submit");
-		Qty = new JTextField();
-		Qty.setEditable(true);    	
-		panel = new JPanel();
-    	panel.setLayout(new GridLayout(3, 2, 10, 10));	
-        panel.setBackground(Color.WHITE);
-        panel.setBorder(javax.swing.BorderFactory.createLineBorder(Color.BLACK));
-        
+		getDetails = new JTextArea(item.getDescription());
+		Price = new JTextField("Price:$ " + item.getPrice());
 		remove = new JButton("Remove");
+		
 		panel.add(name);
        	panel.add(Price);
        	panel.add(Stock);
        	panel.add(Description);
        	panel.add(remove);
+       	panel.add(new JLabel());
+       	
+       	panel.setBackground(Color.WHITE);
+       	panel.setBorder(javax.swing.BorderFactory.createLineBorder(Color.BLACK));
        	
 		name.addActionListener(new ActionListener() {
 			@Override
@@ -55,6 +50,8 @@ public class SupplierWindow extends ItemPanel
 			public void actionPerformed(ActionEvent e) {
 				panel.removeAll();
 				Sellpanel.remove(panel);
+				panel.setOpaque(false);
+				panel.setBorder(new EmptyBorder(0, 0, 0, 0));
 				Sellpanel.revalidate();
 				Sellpanel.repaint();
 			}
@@ -64,12 +61,9 @@ public class SupplierWindow extends ItemPanel
 	@Override
 	public void createItemWindow() 
 	{
-		JFrame Frame = new JFrame();
-		JPanel Panel = new JPanel();
-		
-		Panel.setLayout(new GridLayout(6, 2, 10, 10));	
-		JButton Submit = new JButton("Submit");
-		JButton Cancel = new JButton("Cancel");
+		panel.removeAll();
+        panel.setLayout(new GridLayout(5, 2, 10, 10));
+        
         
         getname = new JTextField(name.getText());
         getname.setEditable(true);
@@ -85,46 +79,58 @@ public class SupplierWindow extends ItemPanel
         getstock.setEditable(true);
         getstock.setBackground(Color.WHITE);
         
-        getDetails = new JTextArea(Description.getText());
+        getDetails = new JTextArea();
         getDetails.setLineWrap(true);
         getDetails.setSize(200, 50);
         getDetails.setEditable(true);
         
-        JLabel warning = new JLabel("");
+        JLabel warning = new JLabel("test");
         warning.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         
         JLabel pname = new JLabel("Product Name:");
         pname.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        Panel.add(pname);
-        Panel.add(getname);
+        panel.add(pname);
+        panel.add(getname);
         
         JLabel pprice = new JLabel("Product Price:");
         pprice.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        Panel.add(pprice);
-        Panel.add(getprice);
+        panel.add(pprice);
+        panel.add(getprice);
         
         JLabel pstock = new JLabel("Product Stock:");
         pstock.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        Panel.add(pstock);
-        Panel.add(getstock);
+        panel.add(pstock);
+        panel.add(getstock);
 
         JLabel pDetails = new JLabel("Product Details:");
         pDetails.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        Panel.add(pDetails);
-        Panel.add(getDetails);
-        Panel.add(warning);
+        panel.add(pDetails);
+        panel.add(getDetails);
+        panel.add(warning);
+        
+        JButton Submit = new JButton("Submit");
+        JButton Cancel = new JButton("Cancel");
         
         Cancel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Frame.dispose();
+				panel.removeAll();
+				panel.setLayout(new GridLayout(3, 2, 10, 10));	
+				panel.add(name);
+		       	panel.add(Price);
+		       	panel.add(Stock);
+		       	panel.add(Description);
+		       	panel.add(remove);
+		       	panel.add(new JLabel());
+		       	panel.setBackground(Color.WHITE);
+		       	panel.setBorder(javax.swing.BorderFactory.createLineBorder(Color.BLACK));
+		       	panel.revalidate();
+		       	panel.repaint();
 			}
 		});
-        
         Submit.addActionListener(new ActionListener() {		
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Frame.dispose();
 				panel.removeAll();
 				panel.setLayout(new GridLayout(3, 2, 10, 10));	
 				name.setText(getname.getText());
@@ -149,13 +155,6 @@ public class SupplierWindow extends ItemPanel
         panel2.setLayout(new GridLayout(1, 2, 10, 10));
         panel2.add(Submit);
         panel2.add(Cancel);
-        Panel.add(panel2, BorderLayout.SOUTH);
-        
-        Frame.add(Panel);
-    	Frame.setPreferredSize(new Dimension(800, 400));
-        Frame.setResizable(true);
-        Frame.pack();
-        Frame.setVisible(true);
-        Frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        panel.add(panel2, BorderLayout.SOUTH);
 	}
 }

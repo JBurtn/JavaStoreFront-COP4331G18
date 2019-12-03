@@ -12,40 +12,32 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+
 import Model.*;
 
 public class View 
 {
-    public View Currentview;
-    public ArrayList<Item> Item = new ArrayList<Item>();
-    public JFrame frame;
+    ArrayList<Item> items;
+    public static JFrame frame = new JFrame();
     //Model model;
-    public JPanel Conpanel;
-    public static JPanel Sellpanel;
+    JPanel Conpanel;
+    JPanel Sellpanel;
     static JTabbedPane users;
     JScrollPane scroll;
-    int UserType;
-    //Consumer Con;
-    //Seller Sell;
+    SupplierWindow sup;
     
-    View(int i)
-    {	
-    	frame = new JFrame();
-    	UserType = i;
-    	
-    	//Item.addAll(new Supplier().getItemList);
-    	Item.addAll(new Inventory().getUserInventory("q"));
+    Account model;
+    
+    View(Account model){
+    	this.model = model;
     	Conpanel = new JPanel();
-    	Conpanel.setLayout(new GridLayout(Item.size(), 1, 10, 10));
+    	Conpanel.setLayout(new GridLayout(items.size(), 1, 10, 10));
     	Sellpanel = new JPanel();
-    	Sellpanel.setLayout(new GridLayout(Item.size(), 1, 10, 10));
+    	Sellpanel.setLayout(new GridLayout(items.size(), 1, 10, 10));
+
+    	
     }
-    View(){}
     
-    
-    /***
-     * Sets the Home Screen Depending on the User Type
-     */
     void Home()
     {	
     	JButton add = new JButton("Add");
@@ -53,63 +45,31 @@ public class View
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				new SupplierView().Display(frame, UserType);
+				new SupplierView().Display();
 			}
 		});
     	
-    	JButton Cart = new JButton("Cart");
-    	Cart.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-				frame.dispose();
-			}
-		});
+    	JPanel panelbuttons = new JPanel();
+    	panelbuttons.setLayout(new GridLayout(1, 2, 10, 0));
+    	panelbuttons.setSize(50, 50);
+    	panelbuttons.add(new JLabel("")); panelbuttons.add(add);
     	
-    	JPanel panelbutton1 = new JPanel();
-    	panelbutton1.setLayout(new GridLayout(1, 2, 10, 0));
-    	panelbutton1.add(new JLabel("")); panelbutton1.add(add);
-    	JPanel panelbutton2 = new JPanel();
-    	panelbutton2.setLayout(new GridLayout(1, 2, 10, 0));
-    	panelbutton2.add(new JLabel("")); panelbutton2.add(Cart);
     	
     	users = new JTabbedPane();
-    	Sellpanel.setLayout(new GridLayout(Item.size() + 2, 1, 10, 10));
-    	Sellpanel.add(panelbutton1, BorderLayout.NORTH);
-    	Conpanel.setLayout(new GridLayout(Item.size() + 2, 1, 10, 10));
-    	Conpanel.add(panelbutton2, BorderLayout.NORTH);
+    	Sellpanel.setLayout(new GridLayout(items.size() + 2, 1, 10, 10));
+    	Sellpanel.add(panelbuttons, BorderLayout.NORTH);
     	
-    	
-    	int j = 1;
-    	for(Item i : Item)
+    	for(Item i : items)
     	{
-    		ConsumerWindow con = new ConsumerWindow(i, j);
+    		ConsumerWindow con = new ConsumerWindow(i);
     		Conpanel.add(con.panel);
-    		SupplierWindow sup = new SupplierWindow(i, j);
+    		sup = new SupplierWindow(i);
     		Sellpanel.add(sup.panel);
-    		j++;
     	}
-    	if(UserType == 0)//Seller
-    	{
-    		//Sell = new Seller();
-    		scroll = new JScrollPane(Sellpanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    		users.addTab("Seller", scroll);
-    	}
-    	else if(UserType == 1)//Consumer
-    	{
-    		//Con = new Consumer();
-    		scroll = new JScrollPane(Conpanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    		users.addTab("Consumer", scroll);
-    	}
-    	else if(UserType == 2)//Both
-    	{
-    		//Sell = new Seller();
-    		//Con = new Consumer();
-    		scroll = new JScrollPane(Sellpanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    		users.addTab("Seller", scroll);
-    		scroll = new JScrollPane(Conpanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    		users.addTab("Consumer", scroll);
-    	}
+    	scroll = new JScrollPane(Conpanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    	users.addTab("Consumer", scroll);
+    	scroll = new JScrollPane(Sellpanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    	users.addTab("Seller", scroll);
     }
     
     public void Display()
