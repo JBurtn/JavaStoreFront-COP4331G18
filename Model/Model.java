@@ -16,10 +16,11 @@ public class Model {
 				Accounts.add(acct);
 			return true;
 		}
-		public Boolean confirm(String user, String password) {
-			Boolean confirm = false;
-			for(int i = 0; i < Accounts.size() && confirm == false; i++) {
-				confirm = Accounts.get(i).confirm(user, password);
+		public Account confirm(String user, String password) {
+			Account confirm = null;
+			for(int i = 0; i < Accounts.size(); i++) {
+				if(Accounts.get(i).confirm(user, password))
+					return confirm;
 			}
 			return confirm;
 		}
