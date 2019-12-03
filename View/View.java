@@ -32,13 +32,13 @@ public class View
     String Name;
     String Pass;
     
-    View(int i, String name, String pass)
+    View(int i, String name, String pass, Model current)
     {	
     	frame = new JFrame();
     	UserType = i;
     	Name = name;
     	Pass = pass;
-    	Model = new Model();
+    	Model = current;
     	switch(UserType) 
     	{
     		case 0:
