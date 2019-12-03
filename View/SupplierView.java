@@ -6,11 +6,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,11 +15,10 @@ import javax.swing.JTextField;
 
 public class SupplierView extends View
 {	
-
-	public void Display(JFrame frame, int Type) 
+	
+	@Override
+	public void Display() 
 	{	
-		
-		frame.dispose();
 		JFrame Frame = new JFrame();
 		JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(7, 2, 10, 10));
@@ -77,8 +71,7 @@ public class SupplierView extends View
             public void actionPerformed(ActionEvent arg0) 
             {
             	Frame.dispose();
-            	frame.dispose();
-            	View test = new View(Type);
+            	View test = new View();
             	test.Display();
             }
         });
@@ -87,21 +80,21 @@ public class SupplierView extends View
             @Override
             public void actionPerformed(ActionEvent arg0) 
             {
-            	Item newItem = new Item(getname.getText(), Integer.parseInt(getstock.getText()), Double.parseDouble(getprice.getText()), getDetails.getText());
-            	//Supplier.addItem(newItem);
+            	//Items item = new Items();
             	Frame.dispose();
-                frame.dispose();
-                View test = new View(Type);
-                test.Display();
+            	View test = new View();
+            	test.Display();
             }
         });
-       
+        
         JPanel panel2 = new JPanel();
         panel2.setLayout(new GridLayout(1, 2, 10, 10));
         panel2.add(Submit);
         panel2.add(Cancel);
         panel.add(panel2, BorderLayout.SOUTH);
+		frame.dispose();
 		
+		Frame.setTitle("THis is FRAME");
 		Frame.add(panel);
 		Frame.setPreferredSize(new Dimension(800, 400));
 		Frame.setResizable(true);
