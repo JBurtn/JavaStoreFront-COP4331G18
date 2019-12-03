@@ -78,20 +78,29 @@ public class ConsumerWindow extends ItemPanel
 		Submit.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Frame.dispose();
-				Price = price;
-				Stock = stock;
-				Description = description;
-				panel.removeAll();
-				panel.add(name);
-				panel.add(Price);
-				panel.add(Qty);
-				panel.add(submit);
-				panel.revalidate();
-				panel.repaint();
+				
+				String []temp = Stock.getText().split(" ");
 				Quantity = Integer.parseInt(qty.getText());
-				//Consumer.addItem(Quantity, item);
-				//Comsumer.save();
+				if(Quantity > Integer.parseInt(temp[1]))
+				{
+					qty.setText("Invalid Amount");
+					qty.setEditable(true);
+				}else 
+				{
+					Frame.dispose();
+					Price = price;
+					Stock = stock;
+					Description = description;
+					panel.removeAll();
+					panel.add(name);
+					panel.add(Price);
+					panel.add(Qty);
+					panel.add(submit);
+					panel.revalidate();
+					panel.repaint();
+					//Consumer.addItem(Quantity, item);
+					//Comsumer.save();
+				}
 			}
 		});
 		
@@ -101,16 +110,15 @@ public class ConsumerWindow extends ItemPanel
 				Frame.dispose();
 				Price = price;
 				Stock = stock;
-				//name = Name;
 				Description = description;
 				
 				panel.removeAll();
 				panel.add(name);
-		        panel.add(Price);
-		        panel.add(Qty);
-		        panel.add(submit);
-		        panel.revalidate();
-		        panel.repaint();
+		        	panel.add(Price);
+		        	panel.add(Qty);
+		        	panel.add(submit);
+		        	panel.revalidate();
+		        	panel.repaint();
 			}
 		});
 		
