@@ -53,10 +53,6 @@ public class New_User implements Display
 	                    Login relogin = new Login();
 	                    relogin.Frame();
 	                }
-	                else
-	                {
-	                    	
-	                }
 	         }
 	        });
 	        return submit;
