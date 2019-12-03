@@ -41,11 +41,11 @@ public class View
     	Model = current;
     	switch(UserType) 
     	{
-    		case 0:
+    		case 1:
     			Buyer = new Customer(Name, Pass, UserType);
     			Item.addAll(Model.getFullItemList());
     			
-    		case 1: 
+    		case 0: 
     			Supplier = new Seller(Name, Pass, UserType);
     		    SellerItems.addAll(Supplier.getItemList());
     		    
