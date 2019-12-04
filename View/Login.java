@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 
 import Model.*;
 
-public class Login implements Display
+public class Login
 {
 	    Model Getuser;
 	    public static JFrame frame = new JFrame();
@@ -43,7 +43,7 @@ public class Login implements Display
 	                {
 	                    frame.dispose();
 	                    View Welcome = new View(verify, Getuser);
-			    Welcome.Display();
+	                    Welcome.Display();
 	                }
 	            }
 	            });
@@ -65,7 +65,6 @@ public class Login implements Display
 	        return getnew;
 	    }
 	    
-	    @Override
 	    public JPanel Panel()
 	    {
 	        JPanel panel = new JPanel();
@@ -85,8 +84,7 @@ public class Login implements Display
 	        panel.add(incorrect);
 	        return panel;
 	    }
-	    
-	    @Override
+
 	    public void Frame()
 	    {        
 	        frame.setTitle("Login");

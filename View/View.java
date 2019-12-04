@@ -1,4 +1,4 @@
-package views;
+package View;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -7,54 +7,87 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import Model.*;
 
 
-public class View 
+public class View extends JFrame
 {   
-	public JFrame frame;
-	
-    public JTabbedPane CurrentView;
-    public ArrayList<Item> ItemStore;
-  
-    private Model current;
+    public static JTabbedPane CurrentView;
+    
+    private ArrayList<Item> ItemStore;
+    private ArrayList<Item> currentUserInV;
+    //private Model current;
+    private JPanel ItemSet = new JPanel();
+    private JPanel Consumer = new JPanel();
+    private JPanel Supplier = new JPanel();
+    private Display display;
     private Account acct;
-    JScrollPane scroll;
+
 
     View(Account acct, Model current)
     {	
-    	frame = new JFrame();
     	this.acct = acct;
-    	this.current = current;
-    	ItemStore = acct.getItemList();
-	
-    	JPanel Panel = new JPanel();
-    	Panel.setLayout(new GridLayout(ItemStore.size(), 1, 10, 10));    	
-	    for(Item i : ItemStore)
-        	{
-        		Panel.add(new ItemPanel(i));
-        	}
-	    scroll = new JScrollPane(Panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);  
-    	CurrentView.addTab("Consumer", new ConsumerView());
-    	switch(acct.getUserType()){
+    	//this.current = current;
+    	ItemStore = current.getFullItemList();
+    	currentUserInV = acct.getItemList();
+    	
+    	
+    	ItemSet.setLayout(new GridLayout(ItemStore.size(), 1, 10, 10));    
+    	CurrentView.addTab("Consumer", Consumer);    	
+    	CurrentView.addTab("Supplier", Supplier);
+    	
+    	
+        switch(acct.getUserType()){
 		case 0:
-			CurrentView.setEnabledAt(0, false);
+	    	Consumer.add(new ConsumerView(acct));
+	    	
+	    	CurrentView.setEnabledAt(1, false);
 			break;
 		case 1:
-			CurrentView.setEnabledAt(1, false);
+	    	Supplier.add(new SupplierView(acct));
 			break;
 		default:
+	    	Supplier.add(new SupplierView(acct));
+	    	Consumer.add(new ConsumerView(acct));
+	    	JPanel p = new JPanel();
+	    	for(Item i : ItemStore) {
+	    		
+	    	}
+	    	
 			break;
-	}
+		}
+        for(Item i: currentUserInV) {
+        	ItemPanel ip = new ItemPanel(i);
+        	
+        	display.onItemLink(i, ip.getOpenwindow());
+        	display.onSubmit(i, ip.getSubmit());
+    		ItemSet.add(ip);
+        }    
+    	Display();
     }
     View(){}
     
     public void Display()
     {
-    	frame.add(CurrentView);
-    	frame.setPreferredSize(new Dimension(800, 400));
-        frame.setResizable(true);
-        frame.pack();
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	CurrentView.addChangeListener(new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				// TODO Auto-generated method stub
+				if(CurrentView.getSelectedIndex() == CurrentView.indexOfComponent(Supplier))
+					display = (SupplierView) CurrentView.getSelectedComponent();
+				else
+					display = (ConsumerView) CurrentView.getSelectedComponent();
+			}
+    	});
+    	this.add(CurrentView);
+    	this.setPreferredSize(new Dimension(800, 400));
+        this.setResizable(true);
+        this.pack();
+        this.setVisible(true);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }

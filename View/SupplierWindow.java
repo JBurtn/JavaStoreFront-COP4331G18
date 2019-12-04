@@ -14,24 +14,23 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import Model.Item;
 
-public class SupplierWindow extends ItemPanel
+public class SupplierWindow extends SupplierView
 {
 	JTextField getname;
 	JTextField getprice;
 	JTextField getstock;
-	JTextArea getDetails;
+	JTextArea Description;
 	JButton remove;
-	int i;
 	
-	public SupplierWindow(Item item, int j) {
+	public SupplierWindow(Item item) {
 		super(item);
 		Price = new JLabel("Price:$ " + item.getPrice());
 		Stock = new JLabel("Stock: " + item.getStock());
 		name = new JButton(item.getName());
-		Description = new JLabel(item.getDetails());
+		Description = new JTextArea(item.getDescription());
 		submit = new JButton("Submit");
 		Qty = new JTextField();
-		Qty.setEditable(true);    	
+
 		panel = new JPanel();
     	panel.setLayout(new GridLayout(3, 2, 10, 10));	
         panel.setBackground(Color.WHITE);
@@ -61,7 +60,6 @@ public class SupplierWindow extends ItemPanel
 		});
 	}
 	
-	@Override
 	public void createItemWindow() 
 	{
 		JFrame Frame = new JFrame();

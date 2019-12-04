@@ -1,4 +1,4 @@
-package views;
+package View;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -15,40 +15,23 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
-import project.Inventory;
+import Model.*;
 
-public class ConsumerView 
+public class ConsumerView extends JPanel implements Display
 {
-	JButton CheckoutBtn;
-	JButton Remove;
-	JList <String> list;
+
+	JList <Item> list;
 	CheckoutView checkOut;
 	JFrame frame = new JFrame();
+	
 	public ConsumerView(Account acct)
 	{
-		//checkOut = new CheckoutView(new Inventory().getUserInventory("q"));
-		checkOut = new CheckoutView(acct.getItemList());
-		String [] names = new String [checkOut.ItemBox.size()];
-		for(int i = 0; i < checkOut.ItemBox.size(); i++)
-		{
-			names[i] = checkOut.ItemBox.get(i).getName();
-		}
-		
-		Remove = new JButton("Remove");
-		Remove.addActionListener(new ActionListener() {	
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				acct.removeItem(checkOut.ItemBox.get(list.getSelectedIndex()));
-				frame.dispose();
-				ConsumerView refreshCart = new ConsumerView(acct);
-				refreshCart.Display();
-			}
-		});
-		list = new JList<>(names);
+		checkOut = new CheckoutView(acct);
 		list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		
 	}
 	//public ConsumerView() {}
-	
+	/*
 	void createCheckout()
 	{
 		JFrame Frame = new JFrame();
@@ -126,15 +109,14 @@ public class ConsumerView
         panel.add(Submit);
         panel.add(Cancel);
 	}
-	
+	*/
 	
 	void Display()
 	{
-		createCheckout();
+		//createCheckout();
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(1, 2));
-		panel.add(checkOut.checkout);
-		panel.add(Remove);
+		panel.add(checkOut);
 		
 		frame.setLayout(new BorderLayout());
 		frame.add(list, BorderLayout.CENTER);
@@ -144,5 +126,30 @@ public class ConsumerView
         frame.pack();
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	@Override
+	public void Frame() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void onSubmit(JButton but) {
+		// TODO Auto-generated method stub
+		but.setText("Open");
+		
+	}
+	@Override
+	public void onItemLink(JButton but) {
+		// TODO Auto-generated method stub
+		but.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				e.
+			}
+			
+		});
+		
 	}
 }
