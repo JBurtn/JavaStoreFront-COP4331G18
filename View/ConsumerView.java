@@ -133,13 +133,13 @@ public class ConsumerView extends JPanel implements Display
 		
 	}
 	@Override
-	public void onSubmit(JButton but) {
+	public void onSubmit(Item item, JButton but) {
 		// TODO Auto-generated method stub
 		but.setText("Open");
 		
 	}
 	@Override
-	public void onItemLink(JButton but) {
+	public void onItemLink(Item item, JButton but) {
 		// TODO Auto-generated method stub
 		but.addActionListener(new ActionListener() {
 
