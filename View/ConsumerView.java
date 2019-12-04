@@ -146,7 +146,7 @@ public class ConsumerView extends JPanel implements Display
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				e.
+				//e.
 			}
 			
 		});
