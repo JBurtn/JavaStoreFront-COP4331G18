@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JLabel;
 
 import Model.*;
 
@@ -15,9 +16,9 @@ public class Login implements Display
 {
 	    Model Getuser;
 	    public static JFrame frame = new JFrame();
-	    private final JLabel incorrect;
-	    private final JTextField user;
-	    private final JTextField pass;
+	    private JLabel incorrect;
+	    private JTextField user;
+	    private JTextField pass;
 	    
 	    Login(Model GetUser)
 	    {
@@ -30,10 +31,11 @@ public class Login implements Display
 	        JButton Login = new JButton("Login");
 	        Login.addActionListener(new ActionListener() {
 	            @Override
-		    private final Account verify;
+		   
 	            public void actionPerformed(ActionEvent arg0) 
-	            {
-		    	verify = confirm(user.getText, pass.getText());
+	            { 
+		    	final Account verify;
+		    	verify = confirm(user.getText(), pass.getText());
 	                if(verify == null){
 	                    incorrect.setText("Incorrect Username And/Or Password");
 	                }
