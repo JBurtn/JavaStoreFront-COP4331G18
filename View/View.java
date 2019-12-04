@@ -26,7 +26,8 @@ public class View
     public static JPanel Sellpanel;
     public static JTabbedPane users;
     JScrollPane scroll;
-
+    Seller seller;
+    Customer customer;
 
     View(Account acct, Model current)
     {	
@@ -41,18 +42,22 @@ public class View
     	Sellpanel.setLayout(new GridLayout(Item.size(), 1, 10, 10));
 	
 	setConsumerPanel();
-	users.addTab("Consumer", scroll);
+	users.addTab("Customer", scroll);
 	setSellerPanel();
 	users.addTab("Seller", scroll);
 	
 	switch(acct.getUserType()){
 		case 0:
+    			//customer = new Customer(acct.getName(), acct.getPass(), acct.getUserType());
 			users.setEnabledAt(0, false);
 			break;
 		case 1:
+			//seller = new Seller(acct.getName(), acct.getPass(), acct.getUserType());
 			users.setEnabledAt(1, false);
 			break;
 		default:
+			//customer = new Customer(acct.getName(), acct.getPass(), acct.getUserType());
+			//seller = new Seller(acct.getName(), acct.getPass(), acct.getUserType());
 			break;
 	}
     }
