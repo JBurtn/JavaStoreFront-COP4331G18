@@ -81,7 +81,7 @@ public class SupplierView extends JPanel implements Display
 	}
 
 	@Override
-	public void onSubmit(JButton But) {
+	public void onSubmit(Item item, JButton But) {
 		// TODO Auto-generated method stub
 		But.addActionListener(new ActionListener() {
 		    @Override
@@ -98,7 +98,7 @@ public class SupplierView extends JPanel implements Display
 	}
 
 	@Override
-	public void onItemLink(JButton but) {
+	public void onItemLink(Item item, JButton but) {
 		// TODO Auto-generated method stub
 		
 	}
