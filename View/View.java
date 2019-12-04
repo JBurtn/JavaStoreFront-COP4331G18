@@ -24,12 +24,12 @@ public class View extends JFrame
     private JPanel Consumer = new JPanel();
     private JPanel Supplier = new JPanel();
     private Display display;
-    private Account acct;
+    //private Account acct;
 
 
     View(Account acct, Model current)
     {	
-    	this.acct = acct;
+    	//this.acct = acct;
     	//this.current = current;
     	ItemStore = current.getFullItemList();
     	currentUserInV = acct.getItemList();
@@ -47,10 +47,10 @@ public class View extends JFrame
 	    	CurrentView.setEnabledAt(1, false);
 			break;
 		case 1:
-	    	Supplier.add(new SupplierView(acct));
+	    	Supplier.add(new SupplierView(acct,current));
 			break;
 		default:
-	    	Supplier.add(new SupplierView(acct));
+	    	Supplier.add(new SupplierView(acct, current));
 	    	Consumer.add(new ConsumerView(acct));
 	    	JPanel p = new JPanel();
 	    	for(Item i : ItemStore) {
