@@ -33,11 +33,13 @@ public class SupplierView extends JPanel implements Display
 	private JLabel pstock = new JLabel("Product Stock:");
 	
 	Account acct;
+	Model current;
 	
-	public SupplierView(Account acct) {
+	public SupplierView(Account acct, Model current) {
 		this.acct = acct;
+		this.current = current;
 	}
-	public void Display(Account acct, Model current) 
+	public void Display() 
 	{	
 		
 		
@@ -91,7 +93,7 @@ public class SupplierView extends JPanel implements Display
 			Double.parseDouble(getprice.getText()), getDetails.getText(), acct.getName());
 			acct.addItem(newItem);
 
-			View complete = new View(acct);
+			View complete = new View(acct, current);
 			complete.Display();
 		    }
 		});
