@@ -7,14 +7,16 @@ public abstract class Item {
 	private double price;
 	private String Description;
 	private String name;
+	private String Sellername;
 	
 	private static final NumberFormat money = NumberFormat.getInstance();
 
-	public Item(String name, int Stock, double Price, String Description) {
+	public Item(String name, int Stock, double Price, String Description, String Sellername) {
 		this.PID = hashCode();
-		this.Stock = Stock;
-		this.price = Price;
-		this.Description = Description;
+		this.setStock(Stock);
+		this.setPrice(Price);
+		this.setDescription(Description);
+		this.setSellername(Sellername);
 	}
 	public String getName() {
 		return name;
@@ -22,7 +24,10 @@ public abstract class Item {
 	public String getDescription() {
 		return Description;
 	}
-
+	public String getSellername() {
+		return Sellername;
+	}
+	
 	public double getPrice() {
 		return price;
 	}
@@ -30,13 +35,27 @@ public abstract class Item {
 	public int getStock() {
 		return Stock;
 	}
-
 	public long getPID() {
 		return PID;
 	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	public void setDescription(String description) {
+		Description = description;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public void setStock(int stock) {
+		Stock = stock;
+	}
+	public void setSellername(String sellername) {
+		Sellername = sellername;
+	}
 	@Override
 	public String toString() {
-		return name + '\t' + money.format(price) + Integer.toString(Stock);
+		return getName() + '\t' + money.format(getPrice()) + Integer.toString(getStock());
 	}
 	@Override
 	public boolean equals(Object o) {
@@ -48,7 +67,7 @@ public abstract class Item {
 	}
 	@Override
 	public int hashCode() {
-		String key = name.concat(Description);// hash on key not value  
+		String key = getName().concat(getDescription());// hash on key not value  
 		long hash = 37;// Small initial Prime
 		
 		for(int i = 0; i < key.length(); i++) {
@@ -56,4 +75,5 @@ public abstract class Item {
 		}
 		return (int) (hash % Integer.MAX_VALUE);
 	}
+
 }

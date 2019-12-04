@@ -1,13 +1,10 @@
 package Model;
 
-
-
-import java.io.*;
 import java.util.ArrayList;
 
 public class Model {
 		private ArrayList<Account> Accounts = new ArrayList<>();
-		private final FileSystem<Account> files = new FileSystem<>("accounts.ser");
+		private final FileSystem files = new FileSystem("accounts.ser");
 		
 		public boolean addAccount(Account acct) {
 			if(Accounts.contains(acct))
@@ -42,8 +39,9 @@ public class Model {
 		public void save() {
 			for(Account acct: Accounts) {
 				files.save(acct);
-				acct.save();
 			}
+			for(Item item: ItemCollection.getInstance().getfullItemList())
+			files.save(item);
 		}
 		
 }

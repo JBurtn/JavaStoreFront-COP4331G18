@@ -7,7 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-public class FileSystem<T> {
+public class FileSystem {
 		private String path;
 		
 		public FileSystem(String path) {
@@ -38,7 +38,7 @@ public class FileSystem<T> {
 			}			
 			return result;
 		}
-		public void save(T obj) {
+		public void save(Object obj) {
 			FileOutputStream fileOut;
 			ObjectOutputStream out;
 			try {
