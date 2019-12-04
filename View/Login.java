@@ -35,7 +35,7 @@ public class Login implements Display
 	            public void actionPerformed(ActionEvent arg0) 
 	            { 
 		    	final Account verify;
-		    	verify = confirm(user.getText(), pass.getText());
+		    	verify = Getuser.confirm(user.getText(), pass.getText());
 	                if(verify == null){
 	                    incorrect.setText("Incorrect Username And/Or Password");
 	                }
