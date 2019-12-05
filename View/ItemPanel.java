@@ -17,10 +17,11 @@ public class ItemPanel extends JPanel
 	private JLabel Stock;
 	private JButton submit;
 	private JTextField Qty;
-	
+	private Item item;
 	
 	ItemPanel(Item item)
 	{
+		this.item = item;
 		OpenItemWindow = new JButton(item.getName());
 		Price = new JLabel("$" + item.getPrice());
 		Stock = new JLabel("" + item.getStock());
@@ -38,7 +39,9 @@ public class ItemPanel extends JPanel
        	this.add(Qty);
        	this.add(submit);
 	}
-	
+	public Item getItem() {
+		return item;
+	}
 	public JButton getOpenwindow() {
 		return OpenItemWindow;
 	}

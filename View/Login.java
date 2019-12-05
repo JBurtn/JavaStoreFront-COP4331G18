@@ -20,13 +20,17 @@ public class Login
 	    private JTextField user;
 	    private JTextField pass;
 	    
-	    Login(Model GetUser)
+	    public Login(Model GetUser)
 	    {
 	    	this.Getuser = GetUser;
 	    	Getuser.load();
+	        user = new JTextField("Username");
+	        pass = new JTextField("Password");
+	        incorrect = new JLabel(" ");
+	    	
 	    }
 	    
-	    private JButton login(JTextField user, JTextField pass, JLabel incorrect)
+	    private JButton login()
 	    {
 	        JButton Login = new JButton("Login");
 	        Login.addActionListener(new ActionListener() {
@@ -57,9 +61,9 @@ public class Login
 	            @Override
 	            public void actionPerformed(ActionEvent arg0) 
 	            {
-	               frame.dispose();
 	               New_User getNew = new New_User(Getuser);
-	               getNew.Frame();
+	               frame.dispose();
+	               getNew.Display();
 	            }
 	            });
 	        return getnew;
@@ -79,7 +83,7 @@ public class Login
 	        
 	        panel.add(user);
 	        panel.add(pass);
-	        panel.add(login(user, pass, incorrect));
+	        panel.add(login());
 	        panel.add(Newuser());
 	        panel.add(incorrect);
 	        return panel;

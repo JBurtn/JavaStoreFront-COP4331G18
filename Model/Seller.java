@@ -33,6 +33,6 @@ public class Seller extends Account{
 	@Override
 	public ArrayList<Item> getItemList() {
 		// TODO Auto-generated method stub
-		return stock.getSellerItemList(name);
+		return stock.getSellerItemList(getName());
 	}
 }

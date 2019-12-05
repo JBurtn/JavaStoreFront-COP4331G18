@@ -7,7 +7,7 @@ import Model.Item;
 
 public interface Display
 {
-    public void Frame();
-    public void onSubmit(Item item, JButton But);
-    public void onItemLink(Item item, JButton but);
+
+    public void onSubmit(ItemPanel item, JButton But);
+    public void onItemLink(ItemPanel item, JButton but);
 }

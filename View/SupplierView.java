@@ -25,6 +25,7 @@ public class SupplierView extends JPanel implements Display
 	private JTextField getprice = new JTextField();
 	private JTextField getstock = new JTextField();	
 	private JTextArea getDetails = new JTextArea();
+	private JButton submit = new JButton();
 	
 	private JLabel warning = new JLabel();
 	private JLabel pDetails = new JLabel("Product Details:");
@@ -33,17 +34,15 @@ public class SupplierView extends JPanel implements Display
 	private JLabel pstock = new JLabel("Product Stock:");
 	
 	Account acct;
-	Model current;
 	
-	public SupplierView(Account acct, Model current) {
+	public SupplierView(Account acct) {
 		this.acct = acct;
-		this.current = current;
 	}
-	public void Display() 
+	public void Display(Account acct, Model current) 
 	{	
 		
-		
-        this.setLayout(new GridLayout(7, 2, 10, 10));
+		GridLayout grid = new GridLayout(7,2, 10, 10);
+        this.setLayout(grid);
                 
 		getname.setBackground(Color.WHITE);
 		getprice.setBackground(Color.WHITE);
@@ -54,7 +53,17 @@ public class SupplierView extends JPanel implements Display
 		getDetails.setSize(200, 50);
 	
 		warning.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		submit.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+		    	Item newItem = new Item(getname.getText(), Integer.parseInt(getstock.getText()), 
+		    	Double.parseDouble(getprice.getText()), getDetails.getText(), acct.getName());
+		    	acct.addItem(newItem);
+			}
+			
+		});
 
 		pname.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		this.add(pname);
@@ -72,36 +81,38 @@ public class SupplierView extends JPanel implements Display
 		pDetails.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		this.add(pDetails);
 		this.add(getDetails);
+		
+		this.add(submit);
+		
 		this.add(warning);
 
 	}
 
 	@Override
-	public void Frame() {
+	public void onSubmit(ItemPanel it, JButton But) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public void onSubmit(Item item, JButton But) {
-		// TODO Auto-generated method stub
 		But.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent arg0) 
 		    {
-			Item newItem = new Item(getname.getText(), Integer.parseInt(getstock.getText()), 
-			Double.parseDouble(getprice.getText()), getDetails.getText(), acct.getName());
-			acct.addItem(newItem);
-
-			View complete = new View(acct, current);
-			complete.Display();
+		    	Item replacement = it.getItem().clone();
+		    	replacement.setStock(Integer.parseInt(it.readQty()));
+		    	acct.setItem(it.getItem(),  replacement);
 		    }
 		});
 	}
 
 	@Override
-	public void onItemLink(Item item, JButton but) {
+	public void onItemLink(ItemPanel it, JButton but) {
 		// TODO Auto-generated method stub
-		
+		but.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent arg0) 
+		    {
+		    	SupplierWindow itemWindow = new SupplierWindow(acct, it.getItem());
+		    	itemWindow.createItemWindow();
+		    }
+		});
 	}
 }

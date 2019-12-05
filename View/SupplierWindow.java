@@ -6,58 +6,40 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import Model.Item;
+import Model.*;
 
-public class SupplierWindow extends SupplierView
-{
-	JTextField getname;
-	JTextField getprice;
-	JTextField getstock;
-	JTextArea Description;
-	JButton remove;
+public class SupplierWindow{
+	private JTextField getname;
+	private JTextField getprice;
+	private JTextField getstock;
+	private JTextArea Description;
+
+	private JFrame Frame;
+	private JPanel panel;
+	private Item item;
+	private Account acct;
 	
-	public SupplierWindow(Item item) {
-		super(item);
-		Price = new JLabel("Price:$ " + item.getPrice());
-		Stock = new JLabel("Stock: " + item.getStock());
-		name = new JButton(item.getName());
-		Description = new JTextArea(item.getDescription());
-		submit = new JButton("Submit");
-		Qty = new JTextField();
+	public SupplierWindow(Account acct, Item item) {
 
+		this.item = item;
+		this.acct = acct;
+		
+		Frame = new JFrame();
+		panel = new JPanel();
+		
 		panel = new JPanel();
     	panel.setLayout(new GridLayout(3, 2, 10, 10));	
         panel.setBackground(Color.WHITE);
         panel.setBorder(javax.swing.BorderFactory.createLineBorder(Color.BLACK));
-        
-		remove = new JButton("Remove");
-		panel.add(name);
-       	panel.add(Price);
-       	panel.add(Stock);
-       	panel.add(Description);
-       	panel.add(remove);
-       	
-		name.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				createItemWindow();
-			}
-		});
-		remove.addActionListener(new ActionListener() {	
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				panel.removeAll();
-				Sellpanel.remove(panel);
-				Sellpanel.revalidate();
-				Sellpanel.repaint();
-			}
-		});
+              	
+
 	}
 	
 	public void createItemWindow() 
@@ -69,24 +51,22 @@ public class SupplierWindow extends SupplierView
 		JButton Submit = new JButton("Submit");
 		JButton Cancel = new JButton("Cancel");
         
-        getname = new JTextField(name.getText());
+        getname = new JTextField(item.getName());
         getname.setEditable(true);
         getname.setBackground(Color.WHITE);
         
-        String []p = Price.getText().split(" ");
-        getprice = new JTextField(p[1]);
+        getprice = new JTextField(Double.toString(item.getPrice()) );
         getprice.setEditable(true);
         getprice.setBackground(Color.WHITE);
         
-        String []s = Stock.getText().split(" ");
-        getstock = new JTextField(s[1]);
+        getstock = new JTextField();
         getstock.setEditable(true);
         getstock.setBackground(Color.WHITE);
         
-        getDetails = new JTextArea(Description.getText());
-        getDetails.setLineWrap(true);
-        getDetails.setSize(200, 50);
-        getDetails.setEditable(true);
+        Description = new JTextArea(Description.getText());
+        Description.setLineWrap(true);
+        Description.setSize(200, 50);
+        Description.setEditable(true);
         
         JLabel warning = new JLabel("");
         warning.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -109,7 +89,7 @@ public class SupplierWindow extends SupplierView
         JLabel pDetails = new JLabel("Product Details:");
         pDetails.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         Panel.add(pDetails);
-        Panel.add(getDetails);
+        Panel.add(Description);
         Panel.add(warning);
         
         Cancel.addActionListener(new ActionListener() {
@@ -123,23 +103,10 @@ public class SupplierWindow extends SupplierView
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Frame.dispose();
-				panel.removeAll();
-				panel.setLayout(new GridLayout(3, 2, 10, 10));	
-				name.setText(getname.getText());
-				panel.add(name);
-				Price.setText(p[0] + " " + getprice.getText());
-				panel.add(Price);
-				Stock.setText(s[0] + " " + getstock.getText());
-		       	panel.add(Stock);
-		       	Description.setText(getDetails.getText());
-		       	panel.add(Description);
-		       	panel.add(remove);
-		       	panel.add(new JLabel());
-		       	panel.setBackground(Color.WHITE);
-		       	panel.setBorder(javax.swing.BorderFactory.createLineBorder(Color.BLACK));
-		       	panel.revalidate();
-		       	panel.repaint();
-	
+
+				Item newItem = new Item(getname.getText(), Integer.parseInt(getstock.getText()), 
+				Double.parseDouble(getprice.getText()), Description.getText(), acct.getName());
+				acct.addItem(newItem);
 			}
 		});
         

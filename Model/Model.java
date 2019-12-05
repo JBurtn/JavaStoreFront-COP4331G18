@@ -40,8 +40,12 @@ public class Model {
 			for(Account acct: Accounts) {
 				files.save(acct);
 			}
-			for(Item item: ItemCollection.getInstance().getfullItemList())
-			files.save(item);
+			for(Item item: getFullItemList()) {
+				files.save(item);
+			}
+		}
+		public ArrayList<Item> getFullItemList() {
+			return ItemCollection.getInstance().getfullItemList();
 		}
 		
 }

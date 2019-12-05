@@ -20,22 +20,38 @@ public class View extends JFrame
     private ArrayList<Item> ItemStore;
     private ArrayList<Item> currentUserInV;
     //private Model current;
+    private JPanel FullItemSet = new JPanel();
     private JPanel ItemSet = new JPanel();
     private JPanel Consumer = new JPanel();
     private JPanel Supplier = new JPanel();
+    
     private Display display;
-    //private Account acct;
+    private Account acct;
 
 
     View(Account acct, Model current)
     {	
-    	//this.acct = acct;
+    	this.acct = acct;
     	//this.current = current;
     	ItemStore = current.getFullItemList();
     	currentUserInV = acct.getItemList();
     	
-    	
-    	ItemSet.setLayout(new GridLayout(ItemStore.size(), 1, 10, 10));    
+    	FullItemSet.setLayout(new GridLayout(ItemStore.size(), 1, 10, 10));
+    	ItemSet.setLayout(new GridLayout(ItemStore.size(), 1, 10, 10));
+    	for(Item i: currentUserInV) {
+        	ItemPanel ip = new ItemPanel(i);
+        	
+        	display.onItemLink(ip, ip.getOpenwindow());
+        	display.onSubmit(ip, ip.getSubmit());
+    		ItemSet.add(ip);
+        }
+        for(Item i: ItemStore) {
+        	ItemPanel ip = new ItemPanel(i);
+        	
+        	display.onItemLink(ip, ip.getOpenwindow());
+        	display.onSubmit(ip, ip.getSubmit());
+    		ItemSet.add(ip);
+        }      
     	CurrentView.addTab("Consumer", Consumer);    	
     	CurrentView.addTab("Supplier", Supplier);
     	
@@ -43,30 +59,33 @@ public class View extends JFrame
         switch(acct.getUserType()){
 		case 0:
 	    	Consumer.add(new ConsumerView(acct));
-	    	
+
+	    	Consumer.add(FullItemSet);
 	    	CurrentView.setEnabledAt(1, false);
 			break;
 		case 1:
-	    	Supplier.add(new SupplierView(acct,current));
+	    	Supplier.add(new SupplierView(acct));
+	    	Supplier.add(ItemSet);
 			break;
 		default:
-	    	Supplier.add(new SupplierView(acct, current));
+	    	Supplier.add(new SupplierView(acct));
 	    	Consumer.add(new ConsumerView(acct));
-	    	JPanel p = new JPanel();
-	    	for(Item i : ItemStore) {
-	    		
-	    	}
+
+	    	Supplier.add(ItemSet);
+	    	Consumer.add(FullItemSet);
 	    	
 			break;
 		}
-        for(Item i: currentUserInV) {
-        	ItemPanel ip = new ItemPanel(i);
-        	
-        	display.onItemLink(i, ip.getOpenwindow());
-        	display.onSubmit(i, ip.getSubmit());
-    		ItemSet.add(ip);
-        }    
+       
     	Display();
+    	
+    	  Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+
+    	        public void run() {
+    	            // Do what you want when the application is stopping
+    	        	current.save();
+    	        }
+    	    }));
     }
     View(){}
     
@@ -81,6 +100,9 @@ public class View extends JFrame
 					display = (SupplierView) CurrentView.getSelectedComponent();
 				else
 					display = (ConsumerView) CurrentView.getSelectedComponent();
+				
+				CurrentView.revalidate();
+				CurrentView.repaint();
 			}
     	});
     	this.add(CurrentView);

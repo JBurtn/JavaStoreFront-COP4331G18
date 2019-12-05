@@ -22,7 +22,7 @@ public class Customer extends Account{
 		// TODO Auto-generated method stub
 		if(cart.contains(item)){
 			if(Store.getfullItemList().contains(item)) {
-				Item replacement = Store.getItem(item);
+				Item replacement = Store.getItem(item).clone();
 				replacement.setStock(item.getStock()+replacement.getStock());
 				Store.setItem(item, replacement);
 			}
@@ -40,7 +40,7 @@ public class Customer extends Account{
 				Store.removeItem(item);
 			}
 			else {
-				Item replacement = Store.getItem(item);
+				Item replacement = Store.getItem(item).clone();
 				replacement.setStock(replacement.getStock() - item.getStock());
 				Store.setItem(item, replacement);
 			}
@@ -58,6 +58,14 @@ public class Customer extends Account{
 		// TODO Auto-generated method stub
 		cart.set(cart.lastIndexOf(item), Nitem);
 	}
-
+	public String subTotal() {
+		int sum = 0;
+		double amount = 0;
+		for(Item it: cart) {
+			sum += it.getStock();
+			amount += it.getPrice();
+		}
+		return Integer.toString(sum) + "\t" + Double.toString(amount);
+	}
 	
 }

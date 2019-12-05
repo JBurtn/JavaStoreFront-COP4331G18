@@ -13,9 +13,9 @@ import Model.*;
  *
  * @author saint
  */
-public class New_User implements Display
+public class New_User
 {
-	 public static JFrame frame = new JFrame();
+	 	public static JFrame frame = new JFrame();
 	    public JTextField username = new JTextField();
 	    private JTextField password = new JTextField();
 	    private static JTextField notify_user = new JTextField();
@@ -50,7 +50,7 @@ public class New_User implements Display
 	            		//ADD NEW ACCOUNT RETRY TO LOGIN
 	            		
 	                    frame.dispose();
-	                    Login relogin = new Login();
+	                    Login relogin = new Login(Getuser);
 	                    relogin.Frame();
 	                }
 	         }
@@ -72,7 +72,6 @@ public class New_User implements Display
 	        return cancel;
 	    }
 	    
-	    @Override
 	    public JPanel Panel()
 	    {
 	        JPanel panel = new JPanel();
@@ -122,9 +121,8 @@ public class New_User implements Display
 	        
 	        return panel;
 	    }
-	    
-	    @Override
-	    public void Frame()
+
+	    public void Display()
 	    {
 	        frame.setLayout(new BorderLayout());
 	        frame.setPreferredSize(new Dimension(500, 400));

@@ -20,17 +20,16 @@ import Model.*;
 public class ConsumerView extends JPanel implements Display
 {
 
-	JList <Item> list;
 	CheckoutView checkOut;
 	JFrame frame = new JFrame();
+	private Account acct;
 	
 	public ConsumerView(Account acct)
 	{
+		this.acct = acct;
 		checkOut = new CheckoutView(acct);
-		list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		
 	}
-	//public ConsumerView() {}
 	/*
 	void createCheckout()
 	{
@@ -119,34 +118,42 @@ public class ConsumerView extends JPanel implements Display
 		panel.add(checkOut);
 		
 		frame.setLayout(new BorderLayout());
-		frame.add(list, BorderLayout.CENTER);
-		frame.add(panel, BorderLayout.SOUTH);
+		frame.add(panel, BorderLayout.WEST);
     	frame.setPreferredSize(new Dimension(800, 400));
         frame.setResizable(true);
         frame.pack();
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	@Override
-	public void Frame() {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void onSubmit(Item item, JButton but) {
+
+	public void onSubmit(ItemPanel it, JButton but) {
 		// TODO Auto-generated method stub
 		but.setText("Open");
+		but.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Item replacement = it.getItem().clone();
+		    	replacement.setStock(Integer.parseInt(it.readQty()));
+		    	acct.addItem(replacement);
+		    	
+		    	checkOut.revalidate();
+		    	checkOut.repaint();
+			}
+		});
 		
 	}
 	@Override
-	public void onItemLink(Item item, JButton but) {
+	public void onItemLink(ItemPanel it, JButton but) {
 		// TODO Auto-generated method stub
 		but.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				//e.
+				ConsumerWindow ItemWindow = new ConsumerWindow(it.getItem());
+				ItemWindow.createItemWindow();
 			}
 			
 		});

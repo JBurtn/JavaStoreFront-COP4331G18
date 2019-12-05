@@ -1,17 +1,20 @@
 package Model;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 public class FileSystem {
 		private String path;
+		private File file;
 		
 		public FileSystem(String path) {
 			this.path = path;
+			file = new File(path);
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		public ArrayList<Object> load() {
 			FileInputStream fileIN;
@@ -21,7 +24,7 @@ public class FileSystem {
 				fileIN = new FileInputStream(path);
 				in = new ObjectInputStream(fileIN);
 
-				while(in.available() != 0) {
+				while(file.canRead() && in.available() != 0) {
 					result.add(in.readObject());
 				}
 			}

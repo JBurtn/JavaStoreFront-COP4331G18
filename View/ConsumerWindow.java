@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 
 import Model.*;
 
-public class ConsumerWindow extends ConsumerView
+public class ConsumerWindow
 {
 	JLabel Description;
 	JLabel Lname;

@@ -3,8 +3,8 @@ package Model;
 import java.util.ArrayList;
 
 public abstract class Account{
-	protected String name;
-	protected String password;
+	private String name;
+	private String password;
 	private int UserType;
 	
 	public Account(String name, String password, int UserType) {

@@ -1,7 +1,7 @@
 package Model;
 import java.text.NumberFormat;
 
-public abstract class Item {
+public class Item implements Cloneable{
 	private long PID;
 	private int Stock;
 	private double price;
@@ -10,9 +10,15 @@ public abstract class Item {
 	private String Sellername;
 	
 	private static final NumberFormat money = NumberFormat.getInstance();
-
+	public Item(String name, int Stock, double Price) {
+		this.PID = hashCode();
+		this.setName(name);
+		this.setStock(Stock);
+		this.setPrice(Price);
+	}
 	public Item(String name, int Stock, double Price, String Description, String Sellername) {
 		this.PID = hashCode();
+		this.setName(name);
 		this.setStock(Stock);
 		this.setPrice(Price);
 		this.setDescription(Description);
@@ -75,5 +81,8 @@ public abstract class Item {
 		}
 		return (int) (hash % Integer.MAX_VALUE);
 	}
-
+	@Override
+	public Item clone() {
+		return new Item(name, Stock, price, Description, Sellername);
+	}
 }
