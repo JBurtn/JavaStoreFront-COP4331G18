@@ -24,6 +24,8 @@ public class View extends JFrame
     private JPanel ItemSet = new JPanel();
     private JPanel Consumer = new JPanel();
     private JPanel Supplier = new JPanel();
+    private SupplierView view;
+    private ConsumerView view2;
     
     private Display display;
     private Account acct;
@@ -52,25 +54,23 @@ public class View extends JFrame
         	display.onSubmit(ip, ip.getSubmit());
     		ItemSet.add(ip);
         }      
-    	CurrentView.addTab("Consumer", Consumer);    	
-    	CurrentView.addTab("Supplier", Supplier);
-    	
-    	
+
         switch(acct.getUserType()){
 		case 0:
-	    	Consumer.add(new ConsumerView(acct));
+			display = view;
+	    	Consumer.add(view2);
 
 	    	Consumer.add(FullItemSet);
-	    	CurrentView.setEnabledAt(1, false);
 			break;
 		case 1:
-	    	Supplier.add(new SupplierView(acct));
+			display = view2;
+	    	Supplier.add(view);
 	    	Supplier.add(ItemSet);
 			break;
 		default:
 			if(acct.getBoth()) {
-	        	Supplier.add(new SupplierView(acct));
-	        	Consumer.add(new ConsumerView(acct));
+	        	Supplier.add(view);
+	        	Consumer.add(view2);
 
 	        	Supplier.add(ItemSet);
 	        	Consumer.add(FullItemSet);
@@ -79,16 +79,12 @@ public class View extends JFrame
 			break;
 		}
         
-
+    	CurrentView.addTab("Consumer", Consumer);    	
+    	CurrentView.addTab("Supplier", Supplier);
+    	CurrentView.setSelectedIndex(0);
+    	
     	Display();
     	
-    	  Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-
-    	        public void run() {
-    	            // Do what you want when the application is stopping
-    	        	current.save();
-    	        }
-    	    }));
     }
     View(){}
     
@@ -100,9 +96,10 @@ public class View extends JFrame
 			public void stateChanged(ChangeEvent e) {
 				// TODO Auto-generated method stub
 				if(CurrentView.getSelectedIndex() == CurrentView.indexOfComponent(Supplier))
-					display = (SupplierView) CurrentView.getSelectedComponent();
+					display = view;
 				else
-					display = (ConsumerView) CurrentView.getSelectedComponent();
+					display = view2;
+				
 				if(acct.getBoth())
 					acct = acct.swap();
 				CurrentView.revalidate();

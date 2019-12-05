@@ -15,21 +15,39 @@ public class CheckoutView extends JPanel
  	private JLabel subTotal;
  	private final  DefaultListModel<Item> ItemBox;
 	
+ 	private JPanel pan = new JPanel();
+ 	private JPanel el = new JPanel();
+ 	
+ 	private Customer acct;
 	public CheckoutView(Account acct) 
 	{
+		this.acct = (Customer) acct;
  		ItemBox = new DefaultListModel<>();
 		remove = new JButton("Delete");
 		checkout = new JButton("Checkout");
+		
+		subTotal = new JLabel(this.acct.subTotal());
 		
 		for(Item i: acct.getItemList())
 			ItemBox.addElement(i);
 		
 		checkout = new JButton("Checkout");
 		checkout.setActionCommand("Open");
+		
 		list = new JList<Item>(ItemBox);
 		list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		
+		this.setLayout(new BorderLayout());
+		el.setLayout(new GridLayout(2,2));
+		pan.add(list);
+		el.add(remove);
+		el.add(checkout);
+		el.add(subTotal);
 		
+		this.add(pan);
+		this.add(el);
+		
+		this.setVisible(true);
 		remove.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

@@ -47,7 +47,6 @@ public class Login
 	                {
 	                    frame.dispose();
 	                    View Welcome = new View(verify, Getuser);
-	                    Welcome.Display();
 	                }
 	            }
 	            });

@@ -47,5 +47,4 @@ public class Model {
 		public ArrayList<Item> getFullItemList() {
 			return ItemCollection.getInstance().getfullItemList();
 		}
-		
 }

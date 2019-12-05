@@ -1,8 +1,14 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ItemCollection {
+public class ItemCollection implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7118254172610710358L;
+
 	private final ArrayList<Item> fullList = new ArrayList<>();
 	
 	public ItemCollection() {}

@@ -1,7 +1,12 @@
 package Model;
+import java.io.Serializable;
 import java.text.NumberFormat;
 
-public class Item implements Cloneable{
+public class Item implements Cloneable, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1514998219480934693L;
 	private long PID;
 	private int Stock;
 	private double price;
@@ -73,7 +78,7 @@ public class Item implements Cloneable{
 	}
 	@Override
 	public int hashCode() {
-		String key = getName().concat(getDescription());// hash on key not value  
+		String key = getName().concat(getDescription()).concat(Sellername);// hash on key not value  
 		long hash = 37;// Small initial Prime
 		
 		for(int i = 0; i < key.length(); i++) {

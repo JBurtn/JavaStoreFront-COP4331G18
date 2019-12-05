@@ -1,8 +1,14 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Account{
+public abstract class Account implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4359273478321210727L;
+	
 	private String name;
 	private String password;
 	private int UserType;

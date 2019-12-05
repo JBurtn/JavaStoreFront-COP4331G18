@@ -12,6 +12,10 @@ import Model.*;
 
 public class ItemPanel extends JPanel
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5948683944629330449L;
 	private JButton OpenItemWindow;
 	private JLabel Price;
 	private JLabel Stock;

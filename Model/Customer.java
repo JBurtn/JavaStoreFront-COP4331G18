@@ -3,6 +3,11 @@ package Model;
 import java.util.ArrayList;
 
 public class Customer extends Account{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4535208759092479686L;
+
 	private int creditNum;
 	
 	private ItemCollection Store = ItemCollection.getInstance();
@@ -14,7 +19,7 @@ public class Customer extends Account{
 	}
 	public Customer(String name, String password, int creditNum) {
 		super(name, password, 0, false);
-		this.creditNum = creditNum;
+		this.setCreditNum(creditNum);
 	}
 	public Customer(int type, String name, String password) {
 		super(name, password, type, true);
@@ -68,6 +73,12 @@ public class Customer extends Account{
 			amount += it.getPrice();
 		}
 		return Integer.toString(sum) + "\t" + Double.toString(amount);
+	}
+	public int getCreditNum() {
+		return creditNum;
+	}
+	public void setCreditNum(int creditNum) {
+		this.creditNum = creditNum;
 	}
 	
 }

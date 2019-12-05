@@ -20,6 +20,10 @@ import Model.*;
 public class ConsumerView extends JPanel implements Display
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7501095034078004090L;
 	CheckoutView checkOut;
 	JFrame frame = new JFrame();
 	private Account acct;

@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 public class Seller extends Account{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3112256486760250609L;
 	private ItemCollection stock = ItemCollection.getInstance();
 
 	public Seller(String name, String password) {
