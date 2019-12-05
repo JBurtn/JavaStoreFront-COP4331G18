@@ -5,10 +5,13 @@ import java.util.ArrayList;
 public class Seller extends Account{
 
 	private ItemCollection stock = ItemCollection.getInstance();
-	
+
 	public Seller(String name, String password) {
-		super(name, password, 0);
+		super(name, password, 1, false);
 		// TODO Auto-generated constructor stub
+	}
+	public Seller(String name, String password, int type) {
+		super(name, password, type, true);
 	}
 	@Override
 	public Item removeItem(Item item) {

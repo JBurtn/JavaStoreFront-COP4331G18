@@ -18,15 +18,17 @@ public class New_User
 	 	public static JFrame frame = new JFrame();
 	    public JTextField username = new JTextField();
 	    private JTextField password = new JTextField();
+	    private JTextField CreditNum = new JTextField();
 	    private static JTextField notify_user = new JTextField();
+	    
 	    private JRadioButton Seller = new JRadioButton("Seller");
 	    private JRadioButton Buyer = new JRadioButton("Buyer");
 	    private JRadioButton Both = new JRadioButton("Both");
+	    
 	    private int user_type;
 	    Model Getuser;
 	    
-	    public New_User(Model temp) 
-	    {
+	    public New_User(Model temp) {
 	    	Getuser = temp;
 	    }
 	    
@@ -41,17 +43,32 @@ public class New_User
 	            	if(!username.getText().isBlank() && !password.getText().isBlank() && 
 	            	(Seller.isSelected() || Buyer.isSelected() || Both.isSelected()))
 	                {
-	            	    if(Seller.isSelected()) 
-	            		user_type = 0;
-	                    else if(Buyer.isSelected())
-	                        user_type = 1;
-	                    else
-	                        user_type = 2;
+	            	    if(Seller.isSelected()){
+	                        if(Getuser.addAccount(new Seller(username.getText(), password.getText()))) {
+	                        	Getuser.save();
+	    	                   	frame.dispose();
+	    	                  	Login relogin = new Login(Getuser);
+	    	                   	relogin.Frame();
+		                    }
+	                    }
+	                    else if(Buyer.isSelected()) {
+	                        if(Getuser.addAccount(new Customer(username.getText(), password.getText() ) ) ) {
+	                        	Getuser.save();
+		    	                frame.dispose();
+			                    Login relogin = new Login(Getuser);
+			                    relogin.Frame();
+		                    }
+	                    }
+	                    else{
+	                        if(Getuser.addAccount(new Seller(username.getText(), password.getText(), 3) ) ) {
+	                        	Getuser.save();
+	    	                    frame.dispose();
+		                    	Login relogin = new Login(Getuser);
+		                    	relogin.Frame();
+	                        }
+	                    }
 	            		//ADD NEW ACCOUNT RETRY TO LOGIN
 	            		
-	                    frame.dispose();
-	                    Login relogin = new Login(Getuser);
-	                    relogin.Frame();
 	                }
 	         }
 	        });
@@ -92,13 +109,9 @@ public class New_User
 	        bg.add(Buyer);
 	        bg.add(Both);
 	        
-	        JTextField setname = new JTextField("Name:");
-	        JTextField setusername = new JTextField("Username:");
-	        JTextField setpassword = new JTextField("Password:");
-	        
-	        setname.setEditable(false);
-	        setusername.setEditable(false);
-	        setpassword.setEditable(false);
+	        JLabel setname = new JLabel("Name:");
+	        JLabel setusername = new JLabel("Username:");
+	        JLabel setpassword = new JLabel("Password:");
 	        
 	        panel.add(setusername);
 	        panel.add(username);

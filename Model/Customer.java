@@ -9,14 +9,16 @@ public class Customer extends Account{
 	private ArrayList<Item> cart = new ArrayList<>();
 	
 	public Customer(String name, String password) {
-		super(name, password, 0);
+		super(name, password, 0, false);
 		// TODO Auto-generated constructor stub
 	}
 	public Customer(String name, String password, int creditNum) {
-		super(name, password, 0);
+		super(name, password, 0, false);
 		this.creditNum = creditNum;
 	}
-
+	public Customer(int type, String name, String password) {
+		super(name, password, type, true);
+	}
 	@Override
 	public Item removeItem(Item item) {//remove item from cart
 		// TODO Auto-generated method stub

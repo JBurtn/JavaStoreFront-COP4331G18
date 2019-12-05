@@ -68,15 +68,18 @@ public class View extends JFrame
 	    	Supplier.add(ItemSet);
 			break;
 		default:
-	    	Supplier.add(new SupplierView(acct));
-	    	Consumer.add(new ConsumerView(acct));
+			if(acct.getBoth()) {
+	        	Supplier.add(new SupplierView(acct));
+	        	Consumer.add(new ConsumerView(acct));
 
-	    	Supplier.add(ItemSet);
-	    	Consumer.add(FullItemSet);
-	    	
+	        	Supplier.add(ItemSet);
+	        	Consumer.add(FullItemSet);
+
+			}
 			break;
 		}
-       
+        
+
     	Display();
     	
     	  Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
@@ -100,7 +103,8 @@ public class View extends JFrame
 					display = (SupplierView) CurrentView.getSelectedComponent();
 				else
 					display = (ConsumerView) CurrentView.getSelectedComponent();
-				
+				if(acct.getBoth())
+					acct = acct.swap();
 				CurrentView.revalidate();
 				CurrentView.repaint();
 			}
